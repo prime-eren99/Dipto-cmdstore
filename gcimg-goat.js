@@ -65,9 +65,11 @@ module.exports = {
                     case "--groupBorder":
                     groupborderColor = args[i + 1];
                     args.splice(i,2);
+                        break;
                         case "--glow":
                     glow = args[i + 1];
                     args.splice(i,2);
+                        break;
                 }
             }
 
