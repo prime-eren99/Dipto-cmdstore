@@ -39,7 +39,7 @@ module.exports = {
     run: async function ({ api, args, event }) {
         try {
             let color = "white"; //text color
-            let bgColor = "https://i.ibb.co/0cKs9kf/1000009359.jpg";
+            let bgColor;
             let adminColor = "yellow";
             let memberColor = "#00FFFF";
             let groupborderColor = "lime";
