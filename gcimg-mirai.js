@@ -11,9 +11,10 @@ async function getAvatarUrls(userIDs) {
     let avatarURLs = [];
     for (let userID of userIDs) {
             try {
-            const url = `https://graph.facebook.com/${userID}/picture?height=1500&width=1500&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`;
+            const shortUrl = `https://graph.facebook.com/${userID}/picture?height=1500&width=1500&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`;
+            const d = await axios.get(shortUrl);
+            let url = d.request.res.responseUrl;
             avatarURLs.push(url);
-        
     } catch (error) {
          avatarURLs.push("https://i.ibb.co/qk0bnY8/363492156-824459359287620-3125820102191295474-n-png-nc-cat-1-ccb-1-7-nc-sid-5f2048-nc-eui2-Ae-HIhi-I.png");
     }
@@ -37,11 +38,12 @@ module.exports = {
 
     run: async function ({ api, args, event }) {
         try {
-            let color = "red";
+            let color = "white"; //text color
             let bgColor = "https://i.ibb.co/0cKs9kf/1000009359.jpg";
             let adminColor = "yellow";
             let memberColor = "#00FFFF";
             let groupborderColor = "lime";
+            let glow = false;
             for (let i = 0; i < args.length; i++) {
                 switch (args[i]) {
                     case "--color":
@@ -63,6 +65,11 @@ module.exports = {
                          case "--groupBorder":
                     groupborderColor = args[i + 1];
                     args.splice(i,2);
+                        break;
+                        case "--glow":
+                    glow = args[i + 1];
+                    args.splice(i,2);
+                        break;
                 }
             }
             let threadInfo = await api.getThreadInfo(event.threadID);
@@ -80,7 +87,8 @@ module.exports = {
                 admincolor: encodeURI(adminColor),
                 membercolor: encodeURI(memberColor),
                 color: encodeURI(color),
-                groupborderColor
+                groupborderColor,
+                glow
             };
 
             if (data2) {
