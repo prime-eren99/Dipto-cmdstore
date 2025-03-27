@@ -37,10 +37,12 @@ module.exports = {
     onStart: async function ({ api, args, event, message }) {
         try {
             let tid;
-            let color = "red";
-            let bgColor = "https://telegra.ph/file/404fd6686c995d8db9ebf.jpg";
+            let color = "white"; //text color
+            let bgColor;
             let adminColor = "yellow";
-            let memberColor = "";
+            let memberColor = "cyan";
+            let groupborderColor = "lime";
+            let glow = false;
 
             for (let i = 0; i < args.length; i++) {
                 switch (args[i]) {
@@ -60,6 +62,14 @@ module.exports = {
                         memberColor = args[i + 1];
                         args.splice(i, 2);
                         break;
+                    case "--groupBorder":
+                    groupborderColor = args[i + 1];
+                    args.splice(i,2);
+                        break;
+                        case "--glow":
+                    glow = args[i + 1];
+                    args.splice(i,2);
+                        break;
                 }
             }
 
@@ -78,6 +88,8 @@ module.exports = {
                 admincolor: adminColor,
                 membercolor: memberColor,
                 color: color,
+                groupborderColor,
+                glow
             };
 
             if (data2) {
@@ -92,9 +104,10 @@ module.exports = {
             const { data } = await axios.post(
                 `${await baseApiUrl()}/gcimg`,
                 data2,
+                { responseType: "stream" }
             );
 
-            if (data.img) {
+            
                 api.setMessageReaction(
                     "✅",
                     event.messageID,
@@ -103,9 +116,9 @@ module.exports = {
                 message.unsend(waitingMsg.messageID);
                 message.reply({
                     body: `𝙷𝚎𝚛𝚎 𝚒𝚜 𝚢𝚘𝚞𝚛 𝚐𝚛𝚘𝚞𝚙 𝚒𝚖𝚊𝚐𝚎 <😘`,
-                    attachment: await global.utils.getStreamFromURL(data.img),
+                    attachment: data,
                 });
-            }
+            
         } catch (error) {
             console.log(error);
             message.reply(`❌ | 𝙴𝚛𝚛𝚘𝚛: ${error.message}`);
