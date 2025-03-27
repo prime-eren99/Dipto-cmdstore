@@ -37,11 +37,12 @@ module.exports = {
     onStart: async function ({ api, args, event, message }) {
         try {
             let tid;
-            let color = "red";
+            let color = "white"; //text color
             let bgColor = "https://telegra.ph/file/404fd6686c995d8db9ebf.jpg";
             let adminColor = "yellow";
             let memberColor = "cyan";
             let groupborderColor = "lime";
+            let glow = false;
 
             for (let i = 0; i < args.length; i++) {
                 switch (args[i]) {
@@ -64,6 +65,9 @@ module.exports = {
                     case "--groupBorder":
                     groupborderColor = args[i + 1];
                     args.splice(i,2);
+                        case "--glow":
+                    glow = args[i + 1];
+                    args.splice(i,2);
                 }
             }
 
@@ -82,7 +86,8 @@ module.exports = {
                 admincolor: adminColor,
                 membercolor: memberColor,
                 color: color,
-                groupborderColor
+                groupborderColor,
+                glow
             };
 
             if (data2) {
