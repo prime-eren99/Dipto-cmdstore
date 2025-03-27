@@ -41,20 +41,28 @@ module.exports = {
             let bgColor = "https://i.ibb.co/0cKs9kf/1000009359.jpg";
             let adminColor = "yellow";
             let memberColor = "#00FFFF";
-            for (let i = 0; i < args.length; i += 2) {
+            let groupborderColor = "lime";
+            for (let i = 0; i < args.length; i++) {
                 switch (args[i]) {
                     case "--color":
                         color = args[i + 1];
+                        args.splice(i,2);
                         break;
                     case "--bgcolor":
                         bgColor = args[i + 1];
+                        args.splice(i,2);
                         break;
                     case "--admincolor":
                         adminColor = args[i + 1];
+                        args.splice(i,2);
                         break;
                     case "--membercolor":
                         memberColor = args[i + 1];
+                        args.splice(i,2);
                         break;
+                         case "--groupBorder":
+                    groupborderColor = args[i + 1];
+                    args.splice(i,2);
                 }
             }
             let threadInfo = await api.getThreadInfo(event.threadID);
@@ -72,6 +80,7 @@ module.exports = {
                 admincolor: encodeURI(adminColor),
                 membercolor: encodeURI(memberColor),
                 color: encodeURI(color),
+                groupborderColor
             };
 
             if (data2) {
@@ -89,13 +98,10 @@ module.exports = {
             const { data } = await axios.post(
                 `${await baseApiUrl()}/gcimg`,
                 data2,
+                { responseType: "stream" }
             );
-            const path = __dirname + "/cache/gcimg.png";
-            const imgData = (
-                await axios.get(data.img, { responseType: "stream" })
-            ).data;
             // writeFileSync(path, Buffer.from(imgData, 'binary'));
-            if (data.img) {
+    
                 api.setMessageReaction(
                     "✅",
                     event.messageID,
@@ -103,15 +109,11 @@ module.exports = {
                     true,
                 );
                 api.unsendMessage(waitingMsg.messageID);
-                api.sendMessage(
-                    {
-                        body: `𝙷𝚎𝚛𝚎 𝚒𝚜 𝚢𝚘𝚞𝚛 𝚐𝚛𝚘𝚞𝚙 𝚒𝚖𝚊𝚐𝚎 <😘`,
-                        attachment: imgData,
-                    },
+                api.sendMessage({ body: `𝙷𝚎𝚛𝚎 𝚒𝚜 𝚢𝚘𝚞𝚛 𝚐𝚛𝚘𝚞𝚙 𝚒𝚖𝚊𝚐𝚎 <😘`,
+                        attachment: data },
                     event.threadID,
-                    event.messageID,
-                );
-            }
+                    event.messageID );
+            
         } catch (error) {
             console.log(error);
             api.sendMessage(`❌ | 𝙴𝚛𝚛𝚘𝚛: ${error.message}`);
