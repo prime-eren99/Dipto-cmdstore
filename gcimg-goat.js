@@ -38,7 +38,7 @@ module.exports = {
         try {
             let tid;
             let color = "white"; //text color
-            let bgColor = "https://telegra.ph/file/404fd6686c995d8db9ebf.jpg";
+            let bgColor;
             let adminColor = "yellow";
             let memberColor = "cyan";
             let groupborderColor = "lime";
