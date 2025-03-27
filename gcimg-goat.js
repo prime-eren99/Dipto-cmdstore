@@ -100,7 +100,7 @@ module.exports = {
                 { responseType: "stream" }
             );
 
-            if (data.img) {
+            
                 api.setMessageReaction(
                     "✅",
                     event.messageID,
@@ -111,7 +111,7 @@ module.exports = {
                     body: `𝙷𝚎𝚛𝚎 𝚒𝚜 𝚢𝚘𝚞𝚛 𝚐𝚛𝚘𝚞𝚙 𝚒𝚖𝚊𝚐𝚎 <😘`,
                     attachment: data,
                 });
-            }
+            
         } catch (error) {
             console.log(error);
             message.reply(`❌ | 𝙴𝚛𝚛𝚘𝚛: ${error.message}`);
