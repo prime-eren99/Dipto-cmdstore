@@ -85,9 +85,15 @@
       "status": "on"
     },
     {
-      "cmd": "catbox_mirai",
+      "cmd": "catbox_goat",
       "author": "Dipto",
       "update": "03/16/2025",
+      "status": "on"
+    },
+    {
+      "cmd": "cdp",
+      "author": "Dipto",
+      "update": "03/27/2025",
       "status": "on"
     },
     {
