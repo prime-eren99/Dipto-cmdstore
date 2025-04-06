@@ -2,7 +2,7 @@ entrypoint = "index.js"
 modules = ["nodejs-20"]
 hidden = [".config", "package-lock.json"]
 
-[gitHubImport]
+[gitHubImport]ok
 requiredFiles = [".replit", "replit.nix", "package.json", "package-lock.json"]
 
 [nix]
