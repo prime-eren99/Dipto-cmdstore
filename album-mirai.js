@@ -215,10 +215,10 @@ module.exports.run = async function ({ api, event, args }) {
   }
   try {
     const response = await axios.get(
-      `${await baseApiUrl()}/imgur?url=${encodeURIComponent(URL)}`,
+      `${await baseApiUrl()}/drive?url=${encodeURIComponent(URL)}`,
     );
-    const imgurLink = response.data.data;
-    const fileExtension = path.extname(imgurLink);
+    const imgurLink = response.data.fileUrl;
+    const fileExtension = ".mp4" //path.extname(imgurLink);
     let query2;
     if (
       fileExtension === ".jpg" ||
