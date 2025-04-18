@@ -226,11 +226,11 @@ module.exports = {
     }
     try {
       const response = await axios.get(
-        `${await baseApiUrl()}/imgur?url=${encodeURIComponent(URL)}`,
+        `${await baseApiUrl()}/drive?url=${encodeURIComponent(URL)}`,
       );
-      let imgurLink = response.data.data;
-      imgurLink = args.join(" ");
-      const fileExtension = path.extname(imgurLink);
+      let imgurLink = response.data.fileUrl;
+      //imgurLink = args.join(" ");
+      const fileExtension = `.mp4` //path.extname(imgurLink);
       let query2;
       if (
         fileExtension === ".jpg" ||
@@ -346,7 +346,7 @@ module.exports = {
         const imgUrl = res.data.data;
         const ex = path.extname(imgUrl);
         const imgRes = await axios.get(imgUrl, { responseType: "arraybuffer" });
-        const filename = __dirname + `/assets/dipto${ex}`;
+        const filename = __dirname + `/assets/dipto_${Date.now()}.mp4`;
         fs.writeFileSync(filename, Buffer.from(imgRes.data, "binary"));
         api.sendMessage(
           {
