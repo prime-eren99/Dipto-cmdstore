@@ -1,11 +1,4 @@
 const axios = require('axios');
-
-const baseApiUrl = async () => {
-  const base = await axios.get(
-    `https://raw.githubusercontent.com/Mostakim0978/D1PT0/refs/heads/main/baseApiUrl.json`
-  );
-  return base.data.romim;
-};
 const config = {
   name: "alya",
   version: "2.0.0",
@@ -53,7 +46,7 @@ function parseInput(input) {
 async function handleResponse({ message, event, input, commandName }) {
   try {
     const { data } = await axios.get(
-      `${await baseApiUrl()}alya_ai?query=${input}&type=${responseType}`
+      `https://www.noobz-api.rf.gd/api/alya_ai?query=${input}&type=${responseType}`
     );
 
     if (responseType === 'voice') {
